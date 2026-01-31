@@ -1,66 +1,79 @@
-import { useNavigate } from "react-router-dom";
-import { Star } from "lucide-react";
+import { X, Droplets, Wind, Star } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { addFavorite, removeFavorite } from "../features/favorites/favoritesSlice";
-import type { RootState } from "../app/store";
-import { X } from "lucide-react";
 import { removeCity } from "../features/weather/weatherSlice";
-import type { AppDispatch } from "../app/store";
+import { addFavorite, removeFavorite } from "../features/favorites/favoritesSlice";
+import { openCityModal } from "../features/ui/uiSlice";
+import type { RootState, AppDispatch } from "../app/store";
 
 interface Props {
   city: string;
   temp: number;
   condition: string;
+  humidity: number;
+  wind: number;
+  unit: "metric" | "imperial";
 }
 
-export default function WeatherCard({ city, temp, condition }: Props) {
- const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
-  
+export default function WeatherCard({
+  city,
+  temp,
+  condition,
+  humidity,
+  wind,
+  unit,
+}: Props) {
+  const dispatch = useDispatch<AppDispatch>();
   const favorites = useSelector((state: RootState) => state.favorites.cities);
-
-  const isFavorite = favorites.includes(city);
-
-  const toggleFavorite = (e: React.MouseEvent) => {
-    e.stopPropagation(); 
-    isFavorite
-      ? dispatch(removeFavorite(city))
-      : dispatch(addFavorite(city));
-  };
-
+  const isFav = favorites.includes(city);
 
   const handleRemove = (e: React.MouseEvent) => {
     e.stopPropagation();
     dispatch(removeCity(city));
   };
-  
+
+  const toggleFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isFav) dispatch(removeFavorite(city));
+    else dispatch(addFavorite(city));
+  };
 
   return (
     <div
-      onClick={() => navigate(`/city/${city}`)}
-      className="relative bg-slate-800/60 backdrop-blur-lg border border-slate-700 rounded-xl p-5 hover:scale-[1.02] transition transform cursor-pointer shadow-lg"
+      onClick={() => dispatch(openCityModal(city))}
+      className="relative bg-slate-800/60 backdrop-blur-lg border border-slate-700 rounded-xl p-5 hover:scale-[1.02] transition transform cursor-pointer shadow-lg flex flex-col justify-between"
     >
+      {/* REMOVE CITY */}
       <button
-        onClick={toggleFavorite}
-        className="absolute top-3 right-3"
+        onClick={handleRemove}
+        className="absolute top-3 right-3 text-slate-400 hover:text-red-400"
       >
-        <Star
-          size={20}
-          className={isFavorite ? "text-yellow-400 fill-yellow-400" : "text-slate-400"}
-        />
+        <X size={18} />
       </button>
 
+      {/* FAVORITE STAR */}
       <button
-  onClick={handleRemove}
-  className="absolute bottom-3 right-3 text-slate-400 hover:text-red-400"
->
-  <X size={18} />
-</button>
+        onClick={toggleFavorite}
+        className="absolute top-3 left-3 text-yellow-400"
+      >
+        <Star size={20} fill={isFav ? "#facc15" : "none"} />
+      </button>
 
+      <h2 className="text-lg font-semibold mt-4">{city}</h2>
 
-      <h2 className="text-xl font-semibold">{city}</h2>
-      <p className="text-4xl font-bold mt-2">{temp}°</p>
-      <p className="text-slate-400 mt-1">{condition}</p>
+      <div className="flex items-center justify-between mt-4">
+        <p className="text-4xl font-bold">{temp}°</p>
+      </div>
+
+      <p className="text-slate-400 capitalize mt-2">{condition}</p>
+
+      <div className="flex justify-between items-center text-sm text-slate-400 mt-4 border-t border-slate-700 pt-3">
+        <div className="flex items-center gap-1">
+          <Droplets size={16} /> {humidity}%
+        </div>
+        <div className="flex items-center gap-1">
+          <Wind size={16} /> {wind} {unit === "metric" ? "m/s" : "mph"}
+        </div>
+      </div>
     </div>
   );
 }

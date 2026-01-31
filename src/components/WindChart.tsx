@@ -8,7 +8,7 @@ import {
     CartesianGrid,
   } from "recharts";
   
-  export default function ForecastChart({ data }: { data: any[] }) {
+  export default function WindChart({ data }: { data: any[] }) {
     if (!data || data.length === 0) return null;
   
     return (
@@ -18,7 +18,7 @@ import {
           <XAxis dataKey="time" stroke="#94a3b8" />
           <YAxis stroke="#94a3b8" />
           <Tooltip contentStyle={{ background: "#0f172a", border: "none" }} />
-          <Line type="monotone" dataKey="temp" stroke="#facc15" strokeWidth={3} dot={false} />
+          <Line type="monotone" dataKey="speed" stroke="#fb923c" strokeWidth={3} dot={false} />
         </LineChart>
       </ResponsiveContainer>
     );

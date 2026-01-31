@@ -45,11 +45,22 @@ export const getWeatherByCity = createAsyncThunk(
 
 export const getForecastByCity = createAsyncThunk(
     "weather/getForecastByCity",
-    async ({ city, unit }: { city: string; unit: string }) => {
-        const data = await fetchForecast(city, unit);
-        return { city, data };
+    async ({ city, unit }: { city: string; unit: string }, { getState }) => {
+      const state = getState() as { weather: WeatherState };
+      const cached = state.weather.forecast[city];
+  
+      const now = Date.now();
+      const ONE_MINUTE = 60 * 1000;
+  
+      if (cached && cached.unit === unit && now - cached.lastFetched < ONE_MINUTE) {
+        return { city, data: cached.data, cached: true };
+      }
+  
+      const data = await fetchForecast(city, unit);
+      return { city, data, cached: false };
     }
-);
+  );
+  
 
 const weatherSlice = createSlice({
     name: "weather",
@@ -76,9 +87,17 @@ const weatherSlice = createSlice({
                 };
             })
 
+            
+
+
             .addCase(getForecastByCity.fulfilled, (state, action) => {
-                state.forecast[action.payload.city] = action.payload.data;
-            })
+                state.forecast[action.payload.city] = {
+                  data: action.payload.data,
+                  lastFetched: Date.now(),
+                  unit: action.meta.arg.unit,
+                };
+              });
+              
 
 
     },

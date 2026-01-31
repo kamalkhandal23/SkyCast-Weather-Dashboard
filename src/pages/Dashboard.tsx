@@ -1,16 +1,29 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../app/store";
-import { getWeatherByCity, addCity } from "../features/weather/weatherSlice";
+import { getWeatherByCity, addCity, getForecastByCity } from "../features/weather/weatherSlice";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
 import WeatherCard from "../components/WeatherCard";
+import CityWeatherModal from "../components/CityWeatherModal";
 
 export default function Dashboard() {
     const dispatch = useDispatch<AppDispatch>();
     const { current, loading, savedCities } = useSelector((state: RootState) => state.weather);
     const unit = useSelector((state: RootState) => state.settings.unit);
     const favorites = useSelector((state: RootState) => state.favorites.cities);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+          savedCities.forEach(cityObj => {
+            dispatch(getWeatherByCity({ city: cityObj.query, unit }));
+            dispatch(getForecastByCity({ city: cityObj.query, unit }));
+          });
+        }, 60000);
+      
+        return () => clearInterval(interval);
+      }, [savedCities, unit, dispatch]);
+      
 
     useEffect(() => {
         if (savedCities.length === 0) {
@@ -59,10 +72,18 @@ export default function Dashboard() {
                                 city={cityObj.display}
                                 temp={Math.round(data.main.temp)}
                                 condition={data.weather[0].main}
+                                icon={data.weather[0].icon}
+                                humidity={data.main.humidity}
+                                wind={data.wind.speed}
+                                unit={unit}
                             />
+                            
+
                         );
                     })}
                 </div>
+                <CityWeatherModal />
+
             </div>
         </div>
     );
