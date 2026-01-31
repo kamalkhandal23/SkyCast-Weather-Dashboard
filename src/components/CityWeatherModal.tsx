@@ -99,7 +99,7 @@ export default function CityWeatherModal() {
                             </div>
                         </div>
 
-                        {/* 🕒 Hourly Forecast */}
+                        {/* Hourly Forecast */}
                         <div className="bg-slate-800 p-4 rounded-xl border border-slate-700">
                             <h3 className="text-sm font-semibold mb-3 text-slate-300">Next Hours</h3>
                             <div className="grid grid-cols-4 gap-3">
