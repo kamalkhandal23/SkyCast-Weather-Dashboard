@@ -23,6 +23,7 @@ export default function WeatherCard({
   humidity,
   wind,
   unit,
+  icon,
 }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const favorites = useSelector((state: RootState) => state.favorites.cities);
