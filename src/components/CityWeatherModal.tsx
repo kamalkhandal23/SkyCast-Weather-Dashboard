@@ -172,14 +172,8 @@ export default function CityWeatherModal() {
     );
 }
 
-function ChartCard({ title, children, full = false }: any) {
-    return (
-        <div className={`bg-slate-800 p-4 rounded-xl border border-slate-700 ${full ? "md:col-span-2" : ""}`}>
-            <h3 className="text-sm font-semibold mb-3 text-slate-300">{title}</h3>
-            <div className="h-56 w-full">{children}</div>
-        </div>
-    );
-}
+
+
 
 function Stat({ icon, label, value }: any) {
     return (

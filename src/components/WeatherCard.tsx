@@ -12,7 +12,9 @@ interface Props {
   humidity: number;
   wind: number;
   unit: "metric" | "imperial";
+  icon: string; 
 }
+
 
 export default function WeatherCard({
   city,
