@@ -12,7 +12,7 @@ interface Props {
   humidity: number;
   wind: number;
   unit: "metric" | "imperial";
-  icon: string; 
+  icon: string;
 }
 
 
@@ -23,7 +23,6 @@ export default function WeatherCard({
   humidity,
   wind,
   unit,
-  icon,
 }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const favorites = useSelector((state: RootState) => state.favorites.cities);
@@ -45,7 +44,7 @@ export default function WeatherCard({
       onClick={() => dispatch(openCityModal(city))}
       className="relative bg-slate-800/60 backdrop-blur-lg border border-slate-700 rounded-xl p-5 hover:scale-[1.02] transition transform cursor-pointer shadow-lg flex flex-col justify-between"
     >
-      {/* REMOVE CITY */}
+
       <button
         onClick={handleRemove}
         className="absolute top-3 right-3 text-slate-400 hover:text-red-400"
@@ -53,7 +52,6 @@ export default function WeatherCard({
         <X size={18} />
       </button>
 
-      {/* FAVORITE STAR */}
       <button
         onClick={toggleFavorite}
         className="absolute top-3 left-3 text-yellow-400"

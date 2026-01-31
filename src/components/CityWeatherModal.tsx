@@ -86,9 +86,6 @@ export default function CityWeatherModal() {
                 </div>
 
                 <div className="p-5 space-y-10">
-
-                    {/* ===== CHART GRID ===== */}
-                    {/* ===== TOP ANALYTICS GRID ===== */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                         {/* 🌡 Temperature Chart */}
@@ -99,7 +96,6 @@ export default function CityWeatherModal() {
                             </div>
                         </div>
 
-                        {/* Hourly Forecast */}
                         <div className="bg-slate-800 p-4 rounded-xl border border-slate-700">
                             <h3 className="text-sm font-semibold mb-3 text-slate-300">Next Hours</h3>
                             <div className="grid grid-cols-4 gap-3">
@@ -119,7 +115,6 @@ export default function CityWeatherModal() {
                         </div>
                     </div>
 
-                    {/* ===== SECOND ROW CHARTS ===== */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         <div className="bg-slate-800 p-4 rounded-xl border border-slate-700">
@@ -138,8 +133,6 @@ export default function CityWeatherModal() {
 
                     </div>
 
-
-                    {/* ===== DETAILED STATS ===== */}
                     <div>
                         <h3 className="text-lg font-semibold mb-4">Detailed Stats</h3>
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -150,7 +143,6 @@ export default function CityWeatherModal() {
                         </div>
                     </div>
 
-                    {/* ===== 7 DAY FORECAST ===== */}
                     <div>
                         <h3 className="text-lg font-semibold mb-4">7-Day Forecast</h3>
                         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
@@ -171,10 +163,6 @@ export default function CityWeatherModal() {
         </div>
     );
 }
-
-
-
-
 function Stat({ icon, label, value }: any) {
     return (
         <div className="bg-slate-800 p-4 rounded-lg border border-slate-700 text-center">
