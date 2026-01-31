@@ -1,73 +1,90 @@
-# React + TypeScript + Vite
+#  SkyCast — Weather Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SkyCast is a modern weather analytics dashboard built to help users understand both current weather conditions and short-term forecasts through clean visuals and interactive charts.  
+The goal of this project was to go beyond a basic weather app and build something closer to a real-world dashboard experience.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+##  Live Demo
 
-## React Compiler
+🌍 **Live Site:**[(https://sky-cast-weather-dashboard-ri4u.vercel.app/)]
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+##  Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+###  Dashboard Overview
+- Displays multiple cities at once  
+- Each city card shows:
+  - Current temperature  
+  - Weather condition  
+  - Humidity  
+  - Wind speed  
+- Favorite cities are pinned at the top  
+- Data auto-refreshes every 60 seconds  
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+###  Search & Favorites
+- City search with API-based autocomplete  
+- Add any city to your dashboard  
+- Mark cities as favorites  
+- Favorites persist between sessions using local storage  
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+###  Detailed Weather Modal
+Clicking on any city opens a detailed analytics view including:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Hour-by-hour temperature trend  
+- Precipitation probability chart  
+- Wind speed trend chart  
+- 5–7 day forecast summary  
+- Extra stats like:
+  - Pressure  
+  - Feels like temperature  
+  - Humidity  
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+All charts are interactive and responsive.
+
+---
+
+###  Settings
+- Toggle between **Celsius (°C)** and **Fahrenheit (°F)**  
+- Unit change updates all cards and charts instantly  
+
+---
+
+###  Performance & Optimization
+- Weather data is cached for 60 seconds to reduce API calls  
+- Auto-refresh keeps information up to date  
+- Charts are optimized for smooth performance on both desktop and mobile  
+
+---
+
+###  Authentication (Bonus Feature)
+- Google Sign-In using Firebase Authentication  
+- Logged-in users can see their profile in the navbar  
+
+---
+
+##  Tech Stack
+
+| Technology | Purpose |
+|-----------|---------|
+| React + TypeScript | Frontend UI |
+| Redux Toolkit | State management |
+| Recharts | Data visualization |
+| Tailwind CSS | Styling |
+| Firebase | Hosting & Authentication |
+| OpenWeatherMap API | Weather data |
+
+---
+
+##  Installation & Setup
+
+Clone the repository:
+
+```bash
+git clone https://github.com/kamalkhandal23/SkyCast-Weather-Dashboard
+cd SkyCast-Weather-Dashboard
